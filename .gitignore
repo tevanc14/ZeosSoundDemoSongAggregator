@@ -1,0 +1,6 @@
+.idea/
+descriptions/
+venv/
+
+songs.txt
+secrets.py
