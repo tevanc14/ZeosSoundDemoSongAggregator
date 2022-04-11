@@ -14,7 +14,7 @@ zeos_second_channel_id = "UCOtI5JChjkQVYRWAbqRhNeQ"
 hyphen_line_regex = r"^[- ?]+$"
 bad_time_regex = r"[\d]{1,2}:[\d]{1,2} - [\d]{1,2}:[\d]{1,2} - [\d]{1,2}:[\d]{1,2}"
 time_stamp_regex = r"(?:[\d]{1,2}:?){3} "
-symbols_regex = r"^[^A-Za-z0-9]+$"
+only_symbols_and_numbers_regex = r"^[^A-Za-z]+$"
 songs_identifiers = ["song list", "songs list", "s o n g l i s t", "sound demo"]
 exclusions = [
     "intro",
@@ -150,7 +150,7 @@ def filter_songs(songs):
 def should_keep(song, songs):
     exists = song != ""
     has_bad_time_regex = re.match(bad_time_regex, song)
-    is_only_symbols = re.match(symbols_regex, song)
+    is_only_symbols_and_numbers = re.match(only_symbols_and_numbers_regex, song)
     excludable = song.lower() in exclusions
     contains_url = "http" in song
     already_recorded = song in songs
@@ -158,7 +158,7 @@ def should_keep(song, songs):
     return (
         exists
         and not has_bad_time_regex
-        and not is_only_symbols
+        and not is_only_symbols_and_numbers
         and not excludable
         and not contains_url
         and not already_recorded
